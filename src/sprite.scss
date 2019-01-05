@@ -1,5 +1,7 @@
 @import "./utils.scss";
 @import "./sprite-settings.scss";
+@import "./palette-settings.scss";
+@import "./hacky-nightmode-settings.scss";
 
 // Absolutely sized images
 #header-img-a,
@@ -11,17 +13,31 @@
 #chat,
 #modmail,
 #new_modmail,
-#header-bottom-right ul li:before,
-#header-bottom-right ul li:after {
+#header-bottom-right ul li:before {
 	@include set-size($image-width,$image-height,true);
 	background-image: url($sprite-url) !important;
 	background-repeat: no-repeat;
 }
 
-// Relatively sized images
-.arrow {
-	background-image: url($sprite-url) !important;
+// Special case: upper right config icon
+#header-bottom-right ul li:after {
+	background-size: get-sprite-size($image-width,$image-height), get-palette-size();
+	background-image: url($sprite-url), url($palette-url);
 	background-repeat: no-repeat;
+
+	$coord: get-map-rect($p-config-alt,$offs-header-icons);
+	background-position-x: nth($coord,1), get-block("card");
+	background-position-y: nth($coord,2), 0;
+}
+
+// Relatively sized images
+.arrow,
+.leavemoderator a:before,
+.flairselectbtn:before,
+:not(#openRESPrefs) > .gearIcon,
+span[class^="gilded-"]:before {
+	background-image: url($sprite-url) !important;
+	background-repeat: repeat !important;
 }
 
 #header-img-a,
@@ -65,26 +81,73 @@
 	@include map-rect($p-config,$offs-header-icons);
 }
 
-#header-bottom-right ul li:after {
-	@include map-rect($p-config-alt,$offs-header-icons);
+.leavemoderator a:before,
+.flairselectbtn:before {
+	box-shadow: none !important;
+	@include set-size-rel(30,30);
+	@include map-rect-rel($rect-30sq,$p-misc-pen,$offs-misc);
 }
 
-.arrow{
+.gearIcon {
+	@include set-size-rel(30,30);
+	@include map-rect-rel($rect-30sq,$p-misc-config,$offs-misc);
+}
+
+/*.expando-button:after {
+	@include set-size-rel(30,30);
+	@include map-rect-rel($rect-30sq,$p-expando-expand,$offs-expando);
+
+	.thing.over18 & {
+		@include map-rect-rel($rect-30sq,$p-expando-expand-xxx,$offs-expando);
+	}
+}
+
+.expando-button.expanded:after {
+	@include map-rect-rel($rect-30sq,$p-expando-collapse,$offs-expando);
+
+	.thing.over18 & {
+		@include map-rect-rel($rect-30sq,$p-expando-collapse-xxx,$offs-expando);
+	}
+}*/
+
+.arrow {
 	@include set-size-rel(30,30);
 	
 	&.up {
-		@include map-rect-rel($p-arrow-up,$offs-arrows);
+		@include map-rect-rel($rect-30sq,$p-arrow-up,$offs-arrows);
 	}
 
 	&.upmod {
-		@include map-rect-rel($p-arrow-upmod,$offs-arrows);
+		@include map-rect-rel($rect-30sq,$p-arrow-upmod,$offs-arrows);
 	}
 
 	&.down {
-		@include map-rect-rel($p-arrow-down,$offs-arrows);
+		@include map-rect-rel($rect-30sq,$p-arrow-down,$offs-arrows);
 	}
 
 	&.downmod {
-		@include map-rect-rel($p-arrow-downmod,$offs-arrows);
+		@include map-rect-rel($rect-30sq,$p-arrow-downmod,$offs-arrows);
+	}
+}
+
+span[class^="gilded-"]:before {
+	@include set-size-rel(30,30);
+}
+
+.gilded-gid1-icon:before {
+	@include map-rect-rel($rect-30sq,$p-awards-silver,$offs-awards);
+}
+
+.gilded-gid2-icon:before {
+	@include map-rect-rel($rect-30sq,$p-awards-gold,$offs-awards);
+}
+
+.gilded-gid3-icon:before {
+	@include map-rect-rel($rect-30sq,$p-awards-platinum,$offs-awards);
+}
+
+@include if-nm {
+	#RESAccountSwitcherDropdown:after {
+		@include map-rect($p-switch,$offs-header-icons);
 	}
 }

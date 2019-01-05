@@ -26,17 +26,34 @@ $p-arrow-upmod: [0,30];
 $p-arrow-down: [30,0];
 $p-arrow-downmod: [30,30];
 
+// Misc
+$p-misc-pen: [0,0];
+$p-misc-config: [30,0];
+
+// Awards
+$p-awards-silver: [0,0];
+$p-awards-gold: [30,0];
+$p-awards-platinum: [60,0];
+
+// -------------------------
+
 // Offsets
 $offs-logo: [0,0];
 $offs-header-icons: [70,0];
 $offs-arrows: [290,0];
+$offs-misc: [360,0];
+$offs-awards: [0,70];
 
 // Rects
 $rect-60sq: [60,60];
 $rect-30sq: [30,30];
 
+@function get-sprite-size($w,$h) {
+	@return #{round($w / $downsampling)}px #{round($h / $downsampling)}px
+}
+
 @mixin set-size($w,$h,$important: false){
-	$back-size: #{round($w / $downsampling)}px #{round($h / $downsampling)}px;
+	$back-size: get-sprite-size($w, $h);
 	
 	@if ($important) {
 		background-size: $back-size !important;
@@ -60,16 +77,27 @@ $rect-30sq: [30,30];
 	}
 }
 
-@mixin map-rect($point,$offs) {
-	$x: nth($offs,1) + nth($point,1) + nth($padding,1);
-	$y: nth($offs,2) + nth($point,2) + nth($padding,2);
+@function get-map-rect($point,$offs){
+	$x: #{round(nth($offs,1) + nth($point,1) + nth($padding,1)) * -1}px;
+	$y: #{round(nth($offs,2) + nth($point,2) + nth($padding,2)) * -1}px;
 
-	background-position: #{round($x * -1)}px #{round($y * -1)}px;
+	@return (
+		$x,
+		$y
+	);
 }
 
-@mixin map-rect-rel($point,$offs) {
-	$x: round((nth($offs,1) + nth($point,1) + nth($padding,1)) / $image-width * 10000 * $downsampling);
-	$y: round((nth($offs,2) + nth($point,2) + nth($padding,2)) / $image-height * 10000 * $downsampling);
+@mixin map-rect($point,$offs) {
+	$coord: get-map-rect($point,$offs);
 
-	background-position: percentage($x / 10000) percentage($y / 10000);
+	background-position: nth($coord,1) nth($coord,2);
+}
+
+@mixin map-rect-rel($rect,$point,$offs) {
+	$x: (nth($offs,1) + nth($point,1) + nth($padding,1)) / $image-width * $downsampling;
+	$y: (nth($offs,2) + nth($point,2) + nth($padding,2)) / $image-height * $downsampling;
+	$rx: nth($rect,1) / $image-width * $downsampling;
+	$ry: nth($rect,2) / $image-height * $downsampling;
+
+	background-position: percentage($x + ($rx * $x) + ($rx * $rx * $x)) percentage($y + ($ry * $y) + ($ry * $ry * $y));
 }

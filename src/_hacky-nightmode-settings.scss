@@ -1,4 +1,4 @@
-@import "./filters.scss";
+@import "./filter-settings.scss";
 
 $body-back-nm: #222;
 $card-back-nm: #3c3c3c;
@@ -13,6 +13,9 @@ $pop-back-slightly-darker-nm: #373737;
 
 @mixin if-nm {
 	@if ($support-hacky-nightmode) {
-		@content;
+		// body.res-nightmode,
+		:lang(nm) {
+			@content;
+		}
 	}
 }

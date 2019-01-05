@@ -1,5 +1,18 @@
 @import "./utils.scss";
 
+body:after {
+	content: $scroll-overflow-msg;
+	position: fixed;
+	top: -300px;
+	left: 0;
+	width: 100%;
+	height: 300px;
+	@include swatch("card");
+	text-align: center;
+	line-height: 500px;
+	z-index: -1;
+}
+
 #header {
 	height: $header-base-height;
 	border: none;
@@ -31,8 +44,9 @@ body:before {
 
 	@if ($header-url!="") {
 		background-image: url($header-url);
-		background-size: cover;
-		background-position: 100% 50%;
+		background-size: 250px 250px;
+		/*background-size: cover;
+		background-position: 100% 50%;*/
 	}
 }
 
@@ -40,12 +54,12 @@ body:before {
 	height: $sr-header-height;
 	padding-left: 3px;
 	line-height: $sr-header-height;
-	background: $header-back;
+	@include swatch("card");
 	border: none;
 }
 
 .sr-bar a {
-	color: $pop-col;
+	color: inherit;
 }
 
 .sr-bar a:hover {
@@ -88,7 +102,8 @@ body:before {
 	max-height: calc(100vh - 40px);
 	top: 15px !important;
 	overflow: auto;
-	background: $card-back;
+	@include swatch("card");
+	pointer-events: none;
 	border: none;
 	overflow: auto;
 	border-bottom-left-radius: $master-border-radius;
@@ -136,7 +151,7 @@ body:before {
 }
 
 #sr-more-link {
-	background: $header-back;
+	@include swatch("card");
 	padding-right: 10px;
 }
 
@@ -166,7 +181,7 @@ body:before {
 	padding-left: 20px;
 	margin-top: -20px;
 	overflow: hidden;
-	color: $card-back;
+	color: $main-back; // $card-back;
 	font-size: 0;
 
 	&:before {
@@ -177,7 +192,7 @@ body:before {
 		top: -10px;
 		left: -6px;
 		border-radius: 50%;
-		box-shadow: 0 0 0 400px $secondary-highlight-col;
+		box-shadow: 0 0 0 400px white;// $secondary-highlight-col;
 		z-index: -1;
 	}
 
@@ -293,10 +308,13 @@ body:not(.res) .user {
 	display: block;
 	font-size: 11px;
 	color: $header-overlay-text-col;
-	// color: $menu-col;
+	
+	+ a {
+		margin-top: 3px;
+	}
 }
 
-.user:hover {
+.loggedin .user:hover {
 	a {
 		color: $menu-col;
 	}
@@ -324,7 +342,7 @@ body:not(.res) .user {
 	left: -8px;
 	white-space: nowrap;
 	padding: 34px 8px 8px 8px;
-	background: $card-back;
+	@include swatch("card");
 	border-radius: $master-border-radius;
 	box-shadow: $modal-drop-shadow;
 	overflow: hidden;
@@ -366,7 +384,7 @@ body:not(.res) .user .userkarma {
 #modmail:hover,
 #new_modmail:hover {
 	 ~ #new_modmail ~ * > * {
-		background-color: transparent !important;
+		background-image: none !important;
 		color: transparent !important;
 		box-shadow: none !important;
 	 }
@@ -378,9 +396,13 @@ body:not(.res) .user .userkarma {
 
 #new_modmail:hover ~ * > *,
 body:not(.loggedin) .user:hover ~ * > * {
-	background-color: transparent !important;
+	background-image: none !important;
 	color: transparent !important;
 	box-shadow: none !important;
+}
+
+#header:hover .logout {
+	color: transparent !important;
 }
 
 #header-bottom-right ul li,
@@ -398,6 +420,10 @@ body:not(.loggedin) .user:hover ~ * > * {
 	pointer-events: none;
 }
 
+.logout {
+	color: transparent !important;
+}
+
 #header-bottom-right ul,
 #openRESPrefs,
 .logout {
@@ -409,18 +435,22 @@ body:not(.loggedin) .user:hover ~ * > * {
 		left: 0;
 		padding: 0 8px;
 		box-sizing: border-box;
-		transition: background-color 300ms, box-shadow 300ms, color 300ms;
-		background: transparent;
+		transition: box-shadow 300ms, color 300ms;
 	}
 }
 
 #header-bottom-right:hover #new_modmail ~ * > *,
 body:not(.loggedin) #header-bottom-right:hover .user ~ * > * {
-	background: $card-back;
+	@include swatch("card");
 	pointer-events: auto;
 	text-decoration: none;
 	box-shadow: $modal-drop-shadow;
 	color: $menu-col;
+}
+
+#header-bottom-right:hover > ul ~ * > *:hover,
+body:not(.loggedin) #header-bottom-right:hover ul ~ * > *:hover {
+	@include swatch-important("pop");
 }
 
 #header-bottom-right:hover #new_modmail ~ ul li:after,
@@ -455,9 +485,9 @@ body:not(.loggedin) #header-bottom-right:hover .user ~ ul li:after {
 
 		&:after {
 			box-shadow: none;
-			background-color: none;
+			background-image: none;
 			opacity: 0;
-			transition: opacity 300ms;
+			transition: opacity 0ms;
 		}
 
 		a {
@@ -471,16 +501,15 @@ body:not(.loggedin) #header-bottom-right:hover .user ~ ul li:after {
 			text-decoration: none;
 			border-radius: inherit;
 			background: inherit;
-			background-image: none;
 			box-shadow: inherit;
 			color: inherit;
 		}
 	}
 
 	> * > *:hover,
-	~ * > *:hover {
+	> * > *:hover ~ * > *:hover {
 		transition: none;
-		background: $pop-back !important;
+		@include swatch("pop");
 	}
 }
 

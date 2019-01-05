@@ -1,0 +1,61 @@
+$palette-width: 20;
+$palette-height: 2;
+$swatch-resolution: 30;
+
+$swatch-types: (
+	"body",
+	"card",
+	"pop",
+	"comment-primary",
+	"comment-secondary",
+	"info",
+	"pop-s-lighter",
+	"pop-lighter",
+	"pop-s-darker",
+	"pop-darker",
+	"spam",
+	"report",
+	"negative",
+	"neutral",
+	"positive",
+	"pressed"
+);
+
+@function get-palette-size() {
+	@return #{percentage($palette-width * 2) percentage($palette-height *2)};
+}
+
+@function get-block($type) {
+	@for $i from 1 through length($swatch-types) {
+		@if ($type==nth($swatch-types,$i)){
+			@return percentage(($i - 0.5) / $palette-width);
+		}
+	}
+
+	@warn "Unsupported palette swatch: #{$type}";
+	@return percentage(0);
+}
+
+@mixin set-block($type,$important: false) {
+	$perc: get-block($type);
+	background-position-x: if($important, $perc !important, $perc);
+}
+
+@function get-row($row) {
+	@return percentage(($row + 0.5) / $palette-height);
+}
+
+@mixin set-row($row, $important: false) {
+	$perc: get-row($row);
+	background-position-y: if($important, $perc !important, $perc);
+}
+
+@mixin set-swatch($type, $set-background: false, $important: false, $pos-important: false){
+	$not-found: true;
+
+	@if ($set-background){
+		background-image: if($important, url($palette-url) !important, url($palette-url));
+	}
+
+	@include set-block($type, $pos-important);
+}

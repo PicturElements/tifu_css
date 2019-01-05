@@ -2,10 +2,32 @@
 
 .md {
 	color: $main-col;
+
+	.content & blockquote {
+		color: inherit;
+		opacity: 0.75;
+	}
 	
 	hr {
 		background: $pop-back-slightly-darker;
 		height: 1px;
 		margin: 10px 0;
+	}
+
+	pre,
+	:not(pre) > code {
+		@include swatch("pop-s-darker");
+		border: none;
+	}
+
+	.thing & blockquote,
+	.thing & del {
+		color: inherit;
+		opacity: 0.7;
+	}
+
+	td,
+	th {
+		border-color: rgba(121, 121, 121, 0.6);
 	}
 }

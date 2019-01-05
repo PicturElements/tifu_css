@@ -5,21 +5,25 @@
 	position: relative;
 	margin: 0 $side-gap;
 	margin-right: $sidebar-width + $side-gap + $sidebar-main-gap;
-	background: transparent;
+	background-color: transparent;
 	color: $pop-col-lighter;
 	padding: 0;
 	z-index: 1000;
 
 	> .menuarea {
 		position: relative;
-		background: $card-back;
-		margin: 0 0 4px;
+		@include swatch("card");
+		margin: 0;
 		padding: 3px 0 9px 15px;
 		border-radius: 0 0 0 3px;
-		z-index: 1000;
 		overflow: visible;
 		border: none;
 		border-bottom: 1px solid $body-back;
+		z-index: 1000;
+	}
+
+	> .menuarea:first-child {
+		z-index: 1001;
 	}
 
 	.listing-page & {
@@ -32,7 +36,7 @@
 			display: block;
 			width: 100%;
 			height: 3px;
-			background: $card-back;
+			@include swatch("card");
 			margin-top: -1px;
 			border-radius: 0 0 $master-border-radius $master-border-radius;
 		}
@@ -53,7 +57,7 @@ body.comments-page {
 	}
 
 	.link .parent {
-		border-radius: 0;
+		border-top-left-radius: 0;
 	}
 
 	.link input + .parent {
@@ -104,15 +108,15 @@ body.comments-page {
 		font-size: 9px;
 		margin-top: -9px !important;
 		margin-right: -8px;
-		background: $card-back;
+		@include swatch("card");
 		color: inherit;
 		text-align: center;
 		border-radius: 50%;
 		cursor: default;
 		overflow: visible;
-		z-index: 10000;
+		z-index: 100;
 
-		&:hover {
+		body:not(.comments-page) &:hover {
 			animation: rank-reveal 0ms forwards 1;
 			animation-delay: 250ms;
 
@@ -130,20 +134,20 @@ body.comments-page {
 			transition: transform 250ms;
 		}
 
-		&:hover:before {
+		body:not(.comments-page) &:hover:before {
 			transform: scale(3);
 			animation: rank-reveal-circle 250ms forwards 1;
 			animation-delay: 250ms;
 		}
 	}
 
-	&.stickied .rank:before {
+	/*&.stickied .rank:before {
 		content: "!";
-	}
+	}*/
 
 	.entry {
-		background: $card-back;
-		padding: 5px 0;
+		@include swatch("card");
+		padding: 6px 0 6px 4px;
 		margin-left: 20px;
 		margin-right: 0 !important;
 		overflow: visible;
@@ -162,7 +166,7 @@ body.comments-page {
 
 	.flat-list a {
 		color: $pop-col-lighter;
-		opacity: 0.7;
+		opacity: 0.8;
 
 		&:hover {
 			opacity: 1;
@@ -177,13 +181,14 @@ body.comments-page {
 
 .midcol {
 	position: relative;
+	overflow: visible;
 	z-index: 100;
 }
 
 .link .midcol {
-	position: relative;
+	position: absolute;
 	width: 35px !important;
-	margin: 5px 10px -5px 18px;
+	margin: 5px 0 0 18px;
 	z-index: 10;
 
 	.link + & {
@@ -198,17 +203,16 @@ body.comments-page {
 	margin-bottom: 0;
 }
 
-.arrow.down {
-	margin-top: -1px;
-}
-
 .link .score {
 	height: 15px;
-	line-height: 15px;
+	line-height: 16px;
+	text-indent: 1px;
+	color: inherit;
 }
 
 .top-matter {
 	margin-right: 6px;
+	margin-left: 40px;
 }
 
 .domain {
@@ -248,15 +252,48 @@ body.mod-toolbox .domain a {
 .thing.visited .title,
 .thing .title:visited,
 .thing.visited .source-url {
-	color: $pop-col-lighter;
+	color: inherit;
 }
 
-.expando-button {
+#siteTable .expando-button {
 	position: relative;
-	background: $pop-back-slightly-darker !important;
-	margin: 4px 6px 0 0;
+	background: none !important;
+	margin: 2px 6px 0 0;
 	border-radius: 3px;
-	z-index: 400;
+	border: 1px solid;
+	z-index: 98;
+	opacity: 0.5;
+
+	&:before,
+	&:after {
+		content: "";
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		width: 3px;
+		height: 3px;
+		border-radius: inherit;
+		background: currentColor;
+	}
+
+	&:before {
+		width: 15px;
+		left: 4px;
+	}
+
+	&:after {
+		height: 15px;
+		top: 4px;
+		transition: transform 300ms;
+	}
+
+	&.expanded:after {
+		transform: scaleY(0);
+	}
+
+	&:hover {
+		opacity: 0.7;
+	}
 }
 
 .expando {
@@ -265,12 +302,11 @@ body.mod-toolbox .domain a {
 }
 
 .link .usertext-body .md {
-	background: $card-back;
+	@include swatch("card");
 	border: 1px solid $pop-back-slightly-darker;
 	border-radius: $master-border-radius;
 	margin: auto;
-	// margin-left: 45px;
-	margin-right: 6px;
+	margin-left: -5px;
 }
 
 .nav-buttons {
@@ -357,7 +393,7 @@ body.mod-toolbox .domain a {
 }
 
 #noresults {
-	background: $card-back;
+	@include swatch("card");
 	padding: 40px;
 	padding-top: 30px;
 	box-sizing: border-box;
@@ -365,7 +401,7 @@ body.mod-toolbox .domain a {
 	width: 100%;
 	border-radius: 0 0 3px 3px;
 	font-weight: normal;
-	color: $soft-col;
+	color: #969696;
 
 	&:before {
 		background: $soft-col-lighter;
@@ -379,7 +415,7 @@ body.mod-toolbox .domain a {
 @keyframes rank-reveal {
 	to {
 		color: inherit;
-		background: $card-back;
+		@include swatch("card");
 	}
 }
 
@@ -389,7 +425,7 @@ body.mod-toolbox .domain a {
 	}
 }
 
-@include if-nm {
+/*@include if-nm {
 	body.res-nightmode,
 	:lang(nm) {
 		.rank {
@@ -407,4 +443,4 @@ body.mod-toolbox .domain a {
 			background: $card-back-nm;
 		}
 	}
-}
+}*/

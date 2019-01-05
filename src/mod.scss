@@ -67,29 +67,34 @@ body.moderator {
 	}
 }
 
-.reported-stamp {
-	background: $reports-col !important;
+#header ~ .content .reported-stamp {
+	@include swatch-important("report",true,true);
+	// background: $reports-col !important;
 }
 
 .pretty-button.negative {
-	background: $negative-col;
+	@include swatch-important("negative");
+	// background: $negative-col;
 }
 
 .pretty-button.neutral {
-	background: $neutral-col;
+	@include swatch("neutral");
+	// background: $neutral-col;
 }
 
 .pretty-button.positive {
-	background: $positive-col;
+	@include swatch-important("positive");
+	// background: $positive-col;
 }
 
 .pretty-button.neutral.pressed,
 .pretty-button.positive.pressed {
-	background: $pressed-col;
+	@include swatch("pressed");
+	// background: $pressed-col;
 	color: white !important;
 }
 
-$side-addjust: $sidebar-width + $side-gap * 3 + $sidebar-main-gap + 9px;
+$side-adjust: $sidebar-width + $side-gap * 3 + $sidebar-main-gap + 9px;
 
 ul.report-reasons {
 	width: auto;
@@ -99,10 +104,21 @@ ul.report-reasons {
 	text-align: left;
 	border: none;
 	color: #1a1b1b;
+	@include swatch("report");
 	border-radius: $master-border-radius;
 	margin-top: 6px;
 	padding: 4px 0;
-	transform: translateX(calc(100vw - #{$side-addjust} - 100%));
+	transform: translateX(calc(100vw - #{$side-adjust} - 100%));
+}
+
+.comment .report-reasons[style*="block"] {
+	position: absolute;
+	top: -7px;
+	right: 0;
+	padding: 5px 8px;
+	transform: translateX(100%);
+	overflow: auto;
+	height: 100px;
 }
 
 .expando-button.expanded ~ ul .report-reasons,
@@ -117,6 +133,7 @@ ul.report-reasons {
 
 .comments-page .reported-stamp {
 	clear: left;
+	padding: 0 10px !important;
 }
 
 .comments-page .link .reported-stamp,

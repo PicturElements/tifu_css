@@ -1,11 +1,46 @@
 @import "./utils.scss";
 
+.reddit-infobar {
+	display: flex;
+	@include swatch("card");
+}
+
+.reddit-infobar.with-icon {
+	min-height: 55px;
+	padding-left: 10px;
+}
+
+.reddit-infobar.with-icon:before {
+	position: relative;
+	float: left;
+	width: 45px;
+	height: 45px;
+}
+
+.reddit-infobar .md {
+	color: inherit;
+	display: flex;
+	padding-left: 15px;
+	margin: 0;
+	height: 45px;
+	line-height: 45px;
+	flex-grow: 1;
+	max-width: 100%;
+	align-items: center;
+	background: inherit;
+	@include swatch("pop");
+	border-radius: 0 $master-border-radius $master-border-radius 0;
+}
+
+#eu-cookie-policy .md {
+	background: no-repeat;
+}
+
 .archived-infobar,
 .locked-infobar {
 	margin: 0;
 	padding: 10px;
-	border: 10px solid $card-back;
-	border-radius: 0 $master-border-radius $master-border-radius 0;
+	border-radius: 0 $master-border-radius $master-border-radius;
 	box-shadow: none;
 	margin-bottom: $mini-gap;
 
@@ -28,8 +63,7 @@
 	}
 
 	.tagline {
-		margin-top: 4px;
-		margin-bottom: 14px;
+		margin: 4px 0;
 	}
 
 	.midcol {
@@ -39,6 +73,15 @@
 
 .comments-page .expando {
 	margin-bottom: 5px;
+}
+
+.comments-page .link .flat-list {
+	clear: left;
+	margin-left: 6px;
+}
+
+.comment-permalink-page .link .flat-list {
+	margin: 15px 0 0;
 }
 
 body.comments-page .link .entry {
@@ -65,7 +108,7 @@ body.comments-page .link .entry {
 }
 
 .commentarea {
-	background: $card-back;
+	@include swatch("card");
 	margin-top: $mini-gap;
 	padding-bottom: 2px;
 	border-radius: $master-border-radius;
@@ -82,7 +125,7 @@ body.comments-page .link .entry {
 
 	.menuarea {
 		position: relative;
-		margin: 3px 15px 0 15px;
+		margin: 3px 15px 15px;
 		overflow: visible;
 		color: inherit;
 		z-index: 1000;
@@ -114,6 +157,14 @@ body.comment-permalink-page .commentarea .menuarea {
 	}
 }
 
+.link form.usertext {
+	padding: 10px 10px 5px;
+}
+
+.listing-page .link form.usertext {
+	padding: 2px 10px;
+}
+
 .comments-page .usertext-edit {
 	max-width: 100% !important;
 	width: auto !important;
@@ -121,8 +172,18 @@ body.comment-permalink-page .commentarea .menuarea {
 	float: left;
 }
 
+.usertext-edit.viewSource {
+	float: none;
+	margin-top: -5px !important;
+	padding-bottom: 15px;
+}
+
 .usertext-edit .md {
 	margin-top: 0;
+}
+
+.link .usertext-edit > .md {
+	padding: 0;
 }
 
 .commentarea .markhelp {
@@ -143,24 +204,25 @@ body.comment-permalink-page .commentarea .menuarea {
 .usertext.cloneable {
 	margin: 0 0 10px 0;
 	padding: 10px;
-	background: $pop-back;
+	@include swatch("pop");
 }
 
 .commentarea > .usertext.cloneable {
 	border-top: 1px solid $pop-back-vv-slightly-darker;
 	border-bottom: 1px solid $pop-back-vv-slightly-darker;
-	margin: 15px 0;
+	margin: 0 0 15px;
 }
 
 .usertext-edit textarea {
+	@include swatch("card");
 	min-width: 500px;
 	max-width: 100%;
 }
 
 .gold-accent.comment-visits-box {
 	border: none;
-	background: $pop-back;
-	color: $pop-col;
+	@include swatch("pop");
+	color: inherit;
 	padding: 6px 8px 6px 10px;
 	border-radius: $small-border-radius;
 	border-left: 5px solid $gold-col;
@@ -179,7 +241,7 @@ body.comment-permalink-page .commentarea .menuarea {
 
 .linkinfo {
 	margin: $sidebar-padding;
-	background: $pop-back;
+	@include swatch("pop");
 	border-color: $pop-back-mod;
 	padding: 8px 8px 0;
 
@@ -191,7 +253,7 @@ body.comment-permalink-page .commentarea .menuarea {
 		border-color: $pop-back-mod;
 		border-bottom: none;
 		text-align: center;
-		background: $card-back;
+		@include swatch("card");
 		border-radius: $master-border-radius $master-border-radius 0 0;
 		padding: 6px;
 		margin-top: 3px;
@@ -204,12 +266,16 @@ body.comment-permalink-page .commentarea .menuarea {
 
 .comment {
 	position: relative;
-	background: $pop-back-vv-slightly-darker;
+	// background: $pop-back-vv-slightly-darker;
 	margin-bottom: 8px;
 	border-left: none !important;
 	border-radius: $small-border-radius !important;
 	padding: 5px 8px 5px 5px;
 	margin-bottom: 8px;
+}
+
+#header ~ .content .comment {
+	background-color: transparent !important;
 }
 
 .comment.collapsed,
@@ -228,28 +294,10 @@ body.comment-permalink-page .commentarea .menuarea {
 	margin-left: 0 !important;
 }
 
-.comment .comment,
-.comment .comment .comment .comment,
-.comment .comment .comment .comment .comment .comment,
-.comment .comment .comment .comment .comment .comment .comment .comment,
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background-color: $card-back !important;
-}
-
-.comment .comment .comment,
-.comment .comment .comment .comment .comment,
-.comment .comment .comment .comment .comment .comment .comment,
-.comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background-color: $pop-back-vv-slightly-darker !important;
-}
-
-.comment.spam {
-	background-image: linear-gradient($spam-overlay, $spam-overlay) !important;
-}
-
 .comment.spam > .child {
 	margin-left: 15px;
 	padding-left: 0;
+	background-color: transparent;
 }
 
 .comment.new-comment,
@@ -268,23 +316,22 @@ body.comment-permalink-page .commentarea .menuarea {
 }
 
 .comments-page .usertext {
-	.bottom-area {
-		overflow: visible;
-	}
-
 	button {
 		margin: 0;
 	}
 
-	.cancel {
-		@include secondary-btn;
-		margin-left: 6px;
-		box-shadow: none;
+	.save {
+		margin-right: 6px;
 	}
 
 	&.border .usertext-body {
 		background: transparent;
 	}
+}
+
+.comments-page .cancel {
+	@include secondary-btn;
+	box-shadow: none;
 }
 
 .comment.collapsed .midcol {
@@ -303,13 +350,13 @@ body.comment-permalink-page .commentarea .menuarea {
 .comment .entry {
 	position: relative;
 	overflow: visible;
-	margin-left: 10px;
+	margin-left: 25px;
 }
 
 .comment .flat-list {
 	position: absolute;
 	bottom: -8px;
-	left: 5px;
+	left: -7px;
 	height: 20px;
 	white-space: nowrap;
 	color: $alert-col;
@@ -342,7 +389,7 @@ body.comment-permalink-page .commentarea .menuarea {
 	}
 
 	&:after {
-		background: $pop-back-lighter;
+		@include swatch("pop-lighter");
 		color: transparent !important;
 		border-radius: $master-border-radius $master-border-radius 0 0;
 		box-shadow: $modal-drop-shadow;
@@ -352,8 +399,8 @@ body.comment-permalink-page .commentarea .menuarea {
 		z-index: -1;
 	}
 
-	li {
-		background: $pop-back-lighter;
+	> li {
+		@include swatch("pop-lighter");
 		width: 110px;
 		height: 20px;
 		line-height: 20px;
@@ -369,7 +416,7 @@ body.comment-permalink-page .commentarea .menuarea {
 		overflow: hidden;
 
 		&:hover {
-			background: $pop-back;
+			@include swatch("pop");
 		}
 
 		> a {
@@ -393,6 +440,29 @@ body.comment-permalink-page .commentarea .menuarea {
 	}
 }
 
+.thing ~ .thing.morechildren > .entry > .morecomments {
+	margin-left: -16px;
+}
+
+.grayed,
+.grayed + .flat-list {
+	display: none !important;
+}
+
+.deleted > .midcol {
+	display: none;
+}
+
+.deleted > .entry,
+.collapsed > .entry {
+	margin-left: 15px;
+}
+
+.deleted.noncollapsed > .entry {
+	margin-top: 5px;
+	margin-bottom: -5px;
+}
+
 .commentarea .menuarea .toggle {
 	opacity: 0.7;
 	margin-left: 10px;
@@ -403,21 +473,21 @@ body.comment-permalink-page .commentarea .menuarea {
 }
 
 // I heard you liked long selectors...
-body.moderator.res .commentarea > .sitetable > .comment > .entry .flat-list li:nth-child(4),
-body:not(.moderator).res .commentarea > .sitetable > .comment > .entry .flat-list li:nth-child(5),
-body.moderator.res .comment .flat-list li:nth-child(5),
-body:not(.moderator).res .comment .flat-list li:nth-child(6),
-body.moderator:not(.res) .commentarea > .sitetable > .comment > .entry .flat-list li:nth-child(3),
-body:not(.moderator):not(.res) .commentarea > .sitetable > .comment > .entry .flat-list li:nth-child(4),
-body.moderator:not(.res) .comment .flat-list li:nth-child(4),
-body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
+body.moderator.res .commentarea > .sitetable > .comment > .entry .flat-list > li:nth-child(4),
+body:not(.moderator).res .commentarea > .sitetable > .comment > .entry .flat-list > li:nth-child(5),
+body.moderator.res .comment .flat-list > li:nth-child(5),
+body:not(.moderator).res .comment .flat-list > li:nth-child(6),
+body.moderator:not(.res) .commentarea > .sitetable > .comment > .entry .flat-list > li:nth-child(3),
+body:not(.moderator):not(.res) .commentarea > .sitetable > .comment > .entry .flat-list > li:nth-child(4),
+body.moderator:not(.res) .comment .flat-list > li:nth-child(4),
+body:not(.moderator):not(.res) .comment .flat-list > li:nth-child(5) {
 	border-radius: 0 0 $master-border-radius $master-border-radius;
 
 	~ li {
 		clear: none;
 		float: none !important;
 		display: inline-block !important;
-		background: transparent;
+		background-image: none !important;
 		width: auto !important;
 		margin-left: 7px;
 		margin-right: 0;
@@ -425,10 +495,7 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 		height: 20px;
 		opacity: 1;
 		box-shadow: none;
-
-		a {
-			opacity: 0.7;
-		}
+		transition: none;
 	}
 }
 
@@ -436,6 +503,14 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 	display: block !important;
 	clear: both;
 	padding: 0 !important;
+
+	&[style*="none"] + li {
+		margin-left: 0 !important;
+	}
+
+	a {
+		opacity: 0.8;
+	}
 }
 
 .comment .flat-list:hover {
@@ -444,13 +519,13 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 
 	&:after {
 		opacity: 1;
-		transition-delay: 50ms;
+		transition-delay: 550ms;
 	}
 
-	li {
+	> li {
 		opacity: 1;
 		height: 20px;
-		transition-delay: 0ms;
+		transition-delay: 500ms;
 	}
 }
 
@@ -476,7 +551,7 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 }
 
 .morechildren {
-	margin: 15px -5px -5px;
+	margin: 15px -15px -5px;
 }
 
 .thing ~ .morechildren {
@@ -491,54 +566,16 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 	padding-top: 45px;
 }
 
-.tagline,
+.link .tagline,
 .search-result-meta {
 	color: inherit;
-	line-height: 8px;
+	line-height: 15px;
+	height: 15px;
 }
 
-/*.linkflair-S,
-.linkflair-M,
-.linkflair-L,
-.linkflair-XL {
-	&.link .linkflairlabel {
-		position: absolute;
-		top: 50%;
-		left: 0;
-		width: 18px;
-		height: 18px;
-		margin: -9px -10px;
-		background: $card-back;
-		color: transparent;
-		border-radius: 50%;
-		box-sizing: border-box;
-		padding: 0;
-	}
-
-	.linkflairlabel:before {
-		display: none;
-	}
-
-	.linkflairlabel:after {
-		content: "lol";
-	}
+.gilding-bar a + a span {
+	margin-left: 4px;
 }
-
-.link.linkflair-S .linkflairlabel {
-	box-shadow: inset 0 0 0 7px $flair-small;
-}
-
-.link.linkflair-M .linkflairlabel {
-	box-shadow: inset 0 0 0 6px $flair-medium;
-}
-
-.link.linkflair-L .linkflairlabel {
-	box-shadow: inset 0 0 0 5px $flair-large;
-}
-
-.link.linkflair-XL .linkflairlabel {
-	box-shadow: inset 0 0 0 4px $flair-xlarge;
-}*/
 
 .linkflairlabel a {
 	z-index: 10;
@@ -547,8 +584,13 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 .linkflair-S,
 .linkflair-M,
 .linkflair-L,
-.linkflair-XL {
-	&.link .linkflairlabel {
+.linkflair-XL,
+.linkflair-mod {
+	.rank {
+		background-position-x: -100%;
+	}
+
+	&.link .title .linkflairlabel {
 		position: absolute;
 		top: 50%;
 		left: 0;
@@ -560,16 +602,11 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 		padding: 0;
 		max-width: 16px;
 		transition: max-width cubic-bezier(0.7, 0, 0.3, 1) 500ms;
-		z-index: 9999;
+		z-index: 99;
 	}
 
-	.rank:hover ~ .entry .linkflairlabel,
-	.linkflairlabel:hover {
-		max-width: 300px;
-	}
-
-	.linkflairlabel:before,
-	.linkflairlabel:after {
+	.title .linkflairlabel:before,
+	.title .linkflairlabel:after {
 		content: "";
 		min-width: 18px;
 		height: 18px;
@@ -578,9 +615,10 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 		left: 0;
 		transform: none;
 		background: none;
+		background-image: none !important;
 	}
 
-	.linkflairlabel:before {
+	.title .linkflairlabel:before {
 		content: attr(title);
 		display: block;
 		position: relative;
@@ -593,7 +631,7 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 		z-index: 10;
 	}
 
-	.linkflairlabel:after {
+	.title .linkflairlabel:after {
 		width: 24px;
 		height: 24px;
 		margin: -3px;
@@ -607,67 +645,120 @@ body:not(.moderator):not(.res) .comment .flat-list li:nth-child(5) {
 		top: 50%;
 		left: 50%;
 		margin: -3px;
-		background: $card-back;
+		@include swatch("card");
 		border-radius: 50%;
 	}
 }
 
+.rank:hover ~ .entry .linkflairlabel,
+.linkflairlabel:hover {
+	max-width: 300px !important;
+}
+
 .link.linkflair-S {
 	.rank {
-		background: $flair-small;
+		background-color: $flair-small;
 		color: transparent;
 	}
 
-	.linkflairlabel:after {
+	.title .linkflairlabel:after {
 		box-shadow: 0 0 0 400px $flair-small;
 	}
 
-	.linkflairlabel[title="S"]:before {
+	.title .linkflairlabel[title="S"]:before {
 		content: $small-text;
 	}
 }
 
 .link.linkflair-M {
 	.rank {
-		background: $flair-medium;
+		background-color: $flair-medium;
 		color: transparent;
 	}
 
-	.linkflairlabel:after {
+	.title .linkflairlabel:after {
 		box-shadow: 0 0 0 400px $flair-medium;
 	}
 
-	.linkflairlabel[title="M"]:before {
+	.title .linkflairlabel[title="M"]:before {
 		content: $medium-text;
 	}
 }
 
 .link.linkflair-L {
 	.rank {
-		background: $flair-large;
+		background-color: $flair-large;
 		color: transparent;
 	}
 
-	.linkflairlabel:after {
+	.title .linkflairlabel:after {
 		box-shadow: 0 0 0 400px $flair-large;
 	}
 
-	.linkflairlabel[title="L"]:before {
+	.title .linkflairlabel[title="L"]:before {
 		content: $large-text;
 	}
 }
 
 .link.linkflair-XL {
 	.rank {
-		background: $flair-xlarge;
+		background-color: $flair-xlarge;
 		color: transparent;
 	}
 
-	.linkflairlabel:after {
+	.title .linkflairlabel:after {
 		box-shadow: 0 0 0 400px $flair-xlarge;
 	}
 
-	.linkflairlabel[title="XL"]:before {
+	.title .linkflairlabel[title="XL"]:before {
 		content: $xlarge-text;
 	}
+}
+
+.link.linkflair-mod {
+	.rank {
+		background-color: $flair-mod;
+		color: transparent;
+	}
+
+	&.stickied .rank:hover:after {
+		content: "M";
+	}
+
+	.title .linkflairlabel:after {
+		box-shadow: 0 0 0 400px $flair-mod;
+	}
+
+	.title .linkflairlabel[title=""]:before {
+		content: $mod-post-text;
+	}
+}
+
+.expand:before {
+	content: "–";
+	position: absolute;
+	right: -2px;
+	top: -3px;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 18px;
+	text-align: right;
+	font-weight: 100;
+	opacity: 0.3;
+	z-index: 0;
+}
+
+.collapsed .expand:before {
+	content: "+";
+	line-height: 22px;
+}
+
+.expand ~ * {
+	position: relative;
+	z-index: 10;
+}
+
+.expand:hover:before {
+	opacity: 0.7;
 }

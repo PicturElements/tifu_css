@@ -34,7 +34,7 @@
 		border-color: $pop-back-mod;
 
 		&:hover {
-			background: $pop-back;
+			@include swatch("pop");
 		}
 	}
 
@@ -59,7 +59,7 @@
 #RESShortcutsEditContainer * {
 	background: transparent;
 	overflow: visible;
-	color: $pop-col;
+	color: inherit;
 }
 
 #RESShortcutsSort,
@@ -102,7 +102,7 @@
 		top: -22px;
 		width: 22px;
 		height: 22px;
-		background: $pop-back;
+		@include swatch("pop");
 		font-size: 12px;
 		text-align: center;
 		line-height: 22px;
@@ -110,8 +110,8 @@
 	}*/
 
 	p {
-		background: $pop-back;
-		color: $pop-col;
+		@include swatch("pop");
+		color: inherit;
 		font-size: 0;
 		padding: 4px 9px;
 		font-weight: bold;
@@ -156,7 +156,8 @@
 		height: 35px;
 		left: 0;
 		top: -35px;
-		background-color: inherit;
+		background: inherit;
+		@include swatch("card");
 		border-radius: $master-border-radius $master-border-radius 0 0;
 		box-shadow: $modal-drop-shadow;
 	}
@@ -168,7 +169,7 @@
 	}
 
 	li {
-		background: inherit;
+		background-image: inherit;
 		padding: 0 8px;
 		border-bottom: none;
 		border-radius: inherit;
@@ -231,7 +232,7 @@
 
 #RESSubredditGroupDropdown {
 	display: block;
-	background: $card-back;
+	@include swatch("card");
 	border: none;
 	border-radius: 0 0 $master-border-radius $master-border-radius;
 	box-shadow: $modal-drop-shadow;
@@ -248,11 +249,11 @@
 	}
 
 	ul a:hover {
-		background: $pop-back;
+		@include swatch("pop");
 	}
 
 	.RESShortcutsEditButtons {
-		background: $pop-back;
+		@include swatch("pop");
 		padding: 2px 5px;
 	}
 
@@ -286,7 +287,7 @@
 	}
 
 	input[type="text"] {
-		background: $pop-back;
+		@include swatch("pop");
 		border: 1px solid $pop-back-slightly-darker;
 		padding: 0 2px;
 		height: 25px;
@@ -304,6 +305,11 @@
 
 .RESDropdownList {
 	padding: 0;
+
+	* {
+		background-image: inherit;
+		background-color: transparent !important;
+	}
 }
 
 #shortcut-subreddit {
@@ -333,7 +339,7 @@
 		height: 100%;
 		top: 0;
 		left: 0;
-		background: $card-back;
+		@include swatch("card");
 		border-radius: inherit;
 		box-shadow: inset 0 -41px 0 $pop-back, $modal-drop-shadow;
 		z-index: -1;
@@ -343,8 +349,8 @@
 #editShortcutDialog #sortButton {	// egads
 	border: none !important;
 	padding: 0 !important;
-	background: $pop-back-slightly-darker !important;
-	color: $pop-col !important;
+	@include swatch("pop-s-darker");
+	color: inherit !important;
 	line-height: 25px;
 	font-size: 90% !important;
 	border-radius: 0 $master-border-radius $master-border-radius 0;
@@ -374,7 +380,7 @@
 .builderItem {
 	border: none;
 	border-radius: $master-border-radius;
-	background: $pop-back;
+	@include swatch("pop");
 }
 
 .checkset label {
@@ -442,13 +448,12 @@ body.listing-page .thing.link.res-selected {
 	}
 
 	.entry {
-		background: $pop-back-slightly-lighter !important;
+		@include swatch("pop-s-lighter");
 		border-right: 3px solid $highlight-col;
 	}
 }
 
 body.comments-page .thing.link.res-selected .entry {
-	background: $card-back !important;
 	border-right: 3px solid $highlight-col;
 }
 
@@ -485,13 +490,13 @@ body.comments-page .thing.link.res-selected .entry {
 }
 
 .RESNotificationFooter {
-	background: $pop-back;
+	@include swatch("pop");
 	border: none;
 }
 
 .res-filterline {
 	padding: 5px 7px;
-	background: $pop-back;
+	@include swatch("pop");
 	margin-top: -10px;
 	margin-bottom: 4px;
 	border: 1px solid $body-back;
@@ -506,7 +511,7 @@ body.comments-page .thing.link.res-selected .entry {
 	border: none;
 	border-radius: $master-border-radius;
 	// background:
-	color: $pop-col;
+	color: inherit;
 }
 
 input.res-filterline-toggle-powered {
@@ -580,16 +585,17 @@ input.res-filterline-toggle-powered {
 }
 
 .RESDialogSmall {
-	background: white !important;
+	@include swatch("card");
 	border: none;
 
 	h3 {
-		background: $pop-back;
+		@include swatch("pop");
 		font-weight: bold;
-		color: $pop-col;
+		color: inherit;
 		border: none;
 		border-radius: $master-border-radius $master-border-radius 0 0;
 		padding-top: 10px;
+		z-index: 10;
 	}
 }
 
@@ -607,9 +613,24 @@ input.res-filterline-toggle-powered {
 	margin-bottom: 0 !important;
 }
 
+#BigEditor .RESDialogContents {
+	@include swatch("card");
+	padding: 52px 1em 0;
+	margin: 0;
+}
+
+.RESCloseButton {
+	z-index: 10;
+}
+
+.BEFoot {
+	margin-top: 1em;
+}
+
 .edit-btn {
 	border-color: $pop-back-slightly-darker !important;
 	border-radius: $small-border-radius;
+	background-size: initial;
 }
 
 .res-commentBoxes .comment {
@@ -630,7 +651,7 @@ input.res-filterline-toggle-powered {
 	margin-left: 0 !important;
 }
 
-.res-commentBoxes .comment .comment,
+/*.res-commentBoxes .comment .comment,
 .res-commentBoxes .comment .comment .comment .comment,
 .res-commentBoxes .comment .comment .comment .comment .comment .comment,
 .res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment,
@@ -643,21 +664,22 @@ input.res-filterline-toggle-powered {
 .res-commentBoxes .comment .comment .comment .comment .comment .comment .comment,
 .res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background-color: $pop-back-vv-slightly-darker !important;
-}
+}*/
 
 .res-commentBoxes .comment.spam {
-	background-image: linear-gradient($spam-overlay, $spam-overlay) !important;
+	// background-image: linear-gradient($spam-overlay, $spam-overlay) !important;
+	@include swatch("spam");
 	border-color: $alert-col !important;
 }
 
 .comment .entry.res-selected,
 .comment .entry.res-selected .md-container,
 .entry.res-selected .md-container {
-	background: transparent !important;
+	background-color: transparent !important;
 }
 
 .thing:not(.comment) .entry.res-selected {
-	background: $card-back !important;
+	@include swatch("card");
 }
 
 .RES-save {
@@ -667,11 +689,10 @@ input.res-filterline-toggle-powered {
 #RESStyleSheetTipPane {
 	width: 100%;
 	border: none;
-	color: $pop-col;
 }
 
 #RESStyleSheetTipPane-header {
-	background: $pop-back-mod;
+	@include swatch("pop");
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 1;
@@ -693,7 +714,7 @@ input.res-filterline-toggle-powered {
 }
 
 #RESStyleSheetTipPane-contents {
-	background: $pop-back;
+	@include swatch("pop");
 	padding: 5px 20px;
 	border-radius: 0 0 $master-border-radius $master-border-radius;
 }
@@ -748,7 +769,6 @@ input.res-filterline-toggle-powered {
 
 .fieldPair:not([hidden]) {
 	margin-bottom: 8px;
-	color: $pop-col;
 }
 
 .blueButton {
@@ -779,7 +799,7 @@ input.res-filterline-toggle-powered {
 }
 
 .guider {
-	background: $card-back;
+	@include swatch("card");
 	box-shadow: $modal-drop-shadow;
 	border: none;
 }
@@ -811,12 +831,12 @@ input.res-filterline-toggle-powered {
 
 .NERPageMarker {
 	width: 100%;
-	background: $card-back;
+	@include swatch("card");
 	border-radius: $master-border-radius;
 	border: none;
 	font-size: 12px;
 	padding-top: 4px;
-	margin: 8px 0 12px 0;
+	margin: 8px 0 12px;
 	color: $pop-col-lighter;
 	letter-spacing: 0.04em;
 	line-height: 20px;
@@ -827,6 +847,10 @@ input.res-filterline-toggle-powered {
 
 	a {
 		font-size: $btn-font-size;
+
+		&:after {
+			display: none;
+		}
 	}
 
 	.nextprev a + a {
@@ -840,7 +864,7 @@ input.res-filterline-toggle-powered {
 }
 
 #progressIndicator {
-	background: $card-back;
+	@include swatch("card");
 	border-radius: $master-border-radius;
 	border: none;
 	margin-top: 8px;
@@ -884,4 +908,29 @@ input.res-filterline-toggle-powered {
 		font-size: 11px;
 		margin-left: 10px;
 	}
+}
+
+.res-voteEnhancements-highlightScores span.score {
+	color: inherit;
+	margin: 0 2px;
+}
+
+.RESMacroWrappingSpan .openMacro {
+	color: inherit;
+}
+
+.gearIcon {
+	display: inline-block;
+	width: 1.7em;
+	height: 1.7em;
+	vertical-align: middle;
+
+	&:after {
+		display: none;
+	}
+}
+
+// Search page
+.res-search-tabs li {
+	background: none !important;
 }

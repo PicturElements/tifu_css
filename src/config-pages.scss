@@ -4,11 +4,12 @@
 .create-reddit,
 .subreddit-rules-page,
 .messages-page .content[role=main],
+.search-page .content[role=main],
 .usertable,
 .wiki-page-content,
 .flair-settings,
 .wiki-page .wiki-page-content {
-	background: $card-back;
+	@include swatch("card");
 	padding: 15px;
 	border-radius: 0 $master-border-radius $master-border-radius $master-border-radius;
 }
@@ -16,11 +17,12 @@
 .stylesheet-customize-container > form > h2,
 .create-reddit:before,
 .wiki-page-content > .md:first-child > h1,
-.flair-settings h1:before {
+.flair-settings h1:before,
+.search-page .tabmenu:before {
 	position: absolute;
 	top: -35px;
 	left: 0;
-	background: $card-back;
+	@include swatch("card");
 	color: $highlight-col;
 	margin-top: 0;
 	height: 35px;
@@ -43,6 +45,12 @@
 
 .linefield .title {
 	padding: 0 5px;
+}
+
+// Settings page
+.delete-field td {
+	vertical-align: middle;
+	padding-right: 5px;
 }
 
 // Style page
@@ -135,7 +143,7 @@ ul.image-preview-list {
 		padding-top: 15px;
 		margin: 5px;
 		border-radius: $master-border-radius;
-		background: $pop-back-slightly-lighter;
+		@include swatch("pop-s-lighter");
 
 		.preview {
 			display: inline-block;
@@ -156,6 +164,10 @@ ul.image-preview-list {
 
 		.description {
 			margin: 10px 0 0;
+
+			.img-url {
+				color: inherit;
+			}
 		}
 	}
 }
@@ -246,7 +258,7 @@ ul.image-preview-list {
 #charts,
 .traffic-tables-side,
 .traffic-tables {
-	background: $card-back;
+	@include swatch("card");
 	border-radius: $master-border-radius;
 	margin-top: $mini-gap;
 	min-height: 0;
@@ -298,12 +310,12 @@ div.timeseries {
 	left: 0;
 }
 
-.flairlist {
-	margin-top: 0;
+.usertable {
+	margin: 0;
 }
 
 .flairgrant .linefield {
-	background: $card-back;
+	@include swatch("card");
 	margin: 0;
 }
 
@@ -318,7 +330,7 @@ div.timeseries {
 		margin: 0;
 		box-shadow: none;
 		border-top-left-radius: 0;
-		background: white;
+		@include swatch("card");
 		padding: 15px;
 	}
 
@@ -351,4 +363,38 @@ div.timeseries {
 	&:nth-child(2n):hover {
 		background: $pop-back-mod !important;
 	}
+}
+
+// Search page
+.searchpane,
+.search-result-group,
+.content #search {
+	padding: 0 !important;
+}
+
+.combined-search-page #search input[type=text] {
+	padding: 0 5px;
+}
+
+.search-submit-button {
+	background: $main-back !important;
+	height: 28px !important;
+}
+
+.combined-search-page .search-icon {
+	width: 18px;
+	height: 18px;
+	background-size: 18px 18px;
+}
+
+#previoussearch label:first-of-type {
+	margin-top: 10px;
+}
+
+.search-page .tabmenu:before {
+	content: $search-results-page-tab-text;
+	position: relative;
+	float: left;
+	top: 0;
+	margin-right: 1px;
 }

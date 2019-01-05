@@ -11,7 +11,7 @@ form .spacer + .spacer {
 }
 
 body.submit-page .content[role="main"] {
-	background: $card-back;
+	@include swatch("card");
 	border-radius: 0 $master-border-radius $master-border-radius $master-border-radius;
 	padding: 15px;
 
@@ -36,13 +36,16 @@ body.submit-page .content[role="main"] {
 .roundfield,
 .linefield {
 	width: 100%;
-	background: $pop-back;
 	border-radius: $master-border-radius;
 	box-sizing: border-box;
 	color: $pop-col;
 	font-size: 14px;
 	font-weight: normal;
 	border: none !important;
+
+	&:not(.info-notice) {
+		@include swatch("pop");
+	}
 
 	.usertext-edit {
 		width: 100%;
@@ -78,7 +81,7 @@ body #newlink-with-image-upload {
 	.image-upload-drop-target {
 		border: 1px solid $pop-back-slightly-darker;
 		border-radius: $small-border-radius;
-		background: white;
+		@include swatch("card");
 
 		&.image-upload-drop-active {
 			background: $info-shade;
@@ -105,16 +108,31 @@ body #newlink-with-image-upload {
 	margin-top: 10px;
 }
 
-.usertext .bottom-area {
+.c-form-group {
+	margin: 0;
+}
+
+.usertext-edit .bottom-area {
 	margin-top: 8px;
 	line-height: 16px;
+	overflow: visible;
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+body:not(.comments-page) .usertext .bottom-area {
+	overflow: hidden;
 }
 
 .required-roundfield:before {
 	display: none;
 }
 
-.usertext-buttons {
+.submit-page .usertext-buttons {
 	float: left;
 }
 
@@ -187,7 +205,7 @@ body #newlink-with-image-upload {
 	}
 
 	tr:first-child td {
-		background: $pop-back;
+		@include swatch("pop");
 
 		em {
 			font-style: normal;
@@ -212,7 +230,7 @@ body #newlink-with-image-upload {
 
 	&.enabled {
 		display: block;
-		background: $info-shade;
+		@include swatch("info");
 	}
 
 	&:before {
@@ -222,8 +240,13 @@ body #newlink-with-image-upload {
 	}
 
 	h1 {
+		color: inherit;
 		margin-top: 0;
 		margin-bottom: 0.25em;
+	}
+
+	.md {
+		color: inherit;
 	}
 }
 

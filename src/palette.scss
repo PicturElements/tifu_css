@@ -1,0 +1,198 @@
+@import "./palette-settings.scss";
+@import "./sprite-settings.scss";
+@import "./hacky-nightmode-settings.scss";
+
+// Zero specificity - very important
+* {
+	background-position: inherit;
+	background-size: inherit;
+}
+
+body {
+	@include set-row(0);
+	background-size: percentage($palette-width * 2) percentage($palette-height *2);
+}
+
+:lang(nm) body {
+	@include set-row(1);
+}
+
+// comments page
+.comment,
+.usertext.cloneable,
+.gold-accent.comment-visits-box,
+.linkinfo,
+.link .usertext-body .md,
+.link .entry,
+.commentarea,
+.commentarea > .usertext.cloneable,
+.comment .flat-list:after,
+.comment .flat-list li,
+.reddit-infobar,
+.cancel,
+// sidebar
+.side,
+#search input[type=text],
+#searchexpando,
+.login-form-side,
+.side .subscribe-button,
+.titlebox form.toggle,
+.leavemoderator,
+.side .flairselectbtn,
+.side .md > p:first-of-type ~ h2:before,
+.side .md h2:first-of-type ~ *,
+.side .md > blockquote:first-child > h1 + p a,
+.side .md > blockquote:first-child,
+.res-fancy-toggle-button,
+.side .sidecontentbox,
+body.loggedin .side .redditname:after,
+body.res .side .redditname:after,
+.side h6 + blockquote:hover > p:before,
+.side h6 + blockquote:hover > ul:before,
+// header
+#sr-more-link,
+body:after,
+#sr-header-area,
+.user .userkarma,
+#RESSubredditGroupDropdown,
+#editShortcutDialog,
+#RESShortcutsAddFormContainer
+.RESDropdownList,
+#editShortcutDialog:after,
+#RESShortcutsAddFormContainer:after,
+#RESSubredditGroupDropdown ul a:hover,
+// dropdowns
+.res-filterline-dropdown,
+#sr-drop-down,
+.drop-choices:not(.flairselector),
+.res-commentNavToggle-choices,
+.RESMacroDropdown,
+.drop-choices a.choice:hover,
+.res-commentNavToggle-type:hover,
+.RESMacroDropdownList li a:hover,
+// ui
+input[type=url],
+input[type=text],
+input[type=number],
+input[type=password],
+input:not([type]),
+textarea,
+select,
+.roundfield,
+.linefield,
+.infobar,
+.info-notice,
+body.mod-toolbox .tb-general-button,
+body.mod-toolbox .tb-action-button:not(select),
+body.mod-toolbox .tb-action-button.inline-button,
+.pretty-button,
+.RESSubscriptionButton,
+.reported-stamp,
+.title-button,
+a.title-button.gold,
+.tb-bracket-button,
+.hover-bubble:not(.author-tooltip),
+.multi-selector .title,
+.flairselector h2,
+// tabs
+.stylesheet-customize-container > form > h2,
+.create-reddit:before,
+.wiki-page-content > .md:first-child > h1,
+.flair-settings h1:before,
+// misc pages
+.stylesheet-customize-container,
+.create-reddit,
+.subreddit-rules-page,
+.messages-page .content[role=main],
+.submit-page .content[role=main],
+.search-page .content[role=main],
+.usertable,
+.wiki-page-content,
+.flair-settings,
+.wiki-page .wiki-page-content,
+.submit_text,
+.image-upload-drop-target,
+#RESStyleSheetTipPane-header,
+.image-preview-list li,
+.content[role="main"] > .menuarea:not(.modtools),
+#noresults,
+.search-page .tabmenu:before,
+// flairs
+.flairselector li,
+.flairselector form,
+.linkflair-S .rank:before,
+.linkflair-M .rank:before,
+.linkflair-L .rank:before,
+.linkflair-XL .rank:before,
+.linkflair-mod .rank:before,
+// misc
+.flair:after,
+.linkflairlabel:after,
+// mod stuff
+.modtools .dropdown-title,
+.content > .modtools > span:first-of-type .drop-choices:after,
+.report-reasons,
+// RES
+.comments-page .res-filterline,
+#BigEditor .RESDialogContents,
+.RESDialogSmall,
+.RESDialogSmall h3,
+#sortButton,
+#RESAccountSwitcherDropdown,
+#progressIndicator,
+.NERPageMarker,
+.res-filterline,
+.RESShortcutsEditButtons,
+#sort-menu p,
+// Toolbox
+.tb-popup-header,
+.tb-popup-footer,
+// test
+#header-bottom-right:hover #new_modmail ~ * > *,
+body:not(.loggedin) #header-bottom-right:hover .user ~ * > *,
+#header-bottom-right ul > * > *:hover,
+#header-bottom-right ul > * > *:hover ~ * > *:hover,
+// markdown
+.md pre,
+.md :not(pre)>code {
+	background-color: transparent !important;
+	background-image: url($palette-url);
+	background-repeat: no-repeat;
+	background-size: get-palette-size() !important;
+	background-position-y: inherit !important;
+}
+
+.pretty-button {
+	background-image: url($palette-url) !important;
+}
+
+.link .rank {
+	background-image: url($palette-url);
+	background-repeat: no-repeat;
+	background-size: percentage($palette-width * 2) percentage($palette-height *2) !important;
+	background-position-y: inherit !important;
+}
+
+.comment .comment,
+.comment .comment .comment .comment,
+.comment .comment .comment .comment .comment .comment,
+.comment .comment .comment .comment .comment .comment .comment .comment,
+.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	@include set-swatch("comment-secondary");
+}
+
+.comment,
+.comment .comment .comment,
+.comment .comment .comment .comment .comment,
+.comment .comment .comment .comment .comment .comment .comment,
+.comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	@include set-swatch("comment-primary");
+}
+
+@include if-nm {
+	#header-bottom-right ul li:after {
+		$coord: get-map-rect($p-config,$offs-header-icons);
+		background-position-x: nth($coord,1), get-block("card");
+		background-position-y: nth($coord,2), get-row(1);
+	}
+}

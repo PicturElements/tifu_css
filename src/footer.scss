@@ -1,3 +1,5 @@
+@import "./utils.scss";
+
 .footer-parent {
 	padding-top: 100px;
 }
@@ -7,5 +9,9 @@
 
 	ul {
 		text-align: center;
+	}
+
+	.col {
+		border-left-color: $pop-back-darker;
 	}
 }

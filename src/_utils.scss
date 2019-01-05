@@ -1,10 +1,19 @@
 @import "./flags.scss";
+@import "./palette-settings.scss";
 
-$version: "0.0.1";
+$version: "1.0.0";
+$credit: "r/vykort by u/PicturElements for r/tifu  |  v" $version;
 
 $sprite-url: "http://localhost:2005/img/sprite.png";
-$header-url: "https://hips.hearstapps.com/housebeautiful.cdnds.net/16/49/1481114715-close-up-ornaments-and-string-lights-on-christmas-tree.jpg";
-// $sprite-url: "%%sprite%%";
+$palette-url: "http://localhost:2005/img/palette.png";
+// $header-url: "https://hips.hearstapps.com/housebeautiful.cdnds.net/16/49/1481114715-close-up-ornaments-and-string-lights-on-christmas-tree.jpg";
+$header-url: "http://localhost:2005/img/tesselation.png";
+
+@if ($build) {
+	$sprite-url: "%%s%%";
+	$palette-url: "%%p%%";
+	$header-url: "%%h%%";
+}
 
 // NOT nightmode coming up!
 // If nightmode is enabled, some/all of these will be overwitten.
@@ -15,16 +24,16 @@ $header-url: "https://hips.hearstapps.com/housebeautiful.cdnds.net/16/49/1481114
 // $main-back: #BEEEEF;
 // $main-back: #9ac9ec;
 // $main-back: #a9ec9a;
-$main-back: #ce1f1f;
+$main-back: #316ebb; // #ce1f1f;
 $body-back: #ebf0f3; // #f1f5f7;
 $card-back: white;
-$header-back: white;	// This is the subreddit bar background
 
 // Colors
 $main-col: #4c4c4c;
 $soft-col: #757575;
-$highlight-col: #0072ef;	// AA contrast satisfactory on white
+$highlight-col: #0072ef; // #0269da; // #0072ef;	// AA contrast satisfactory on white
 $secondary-highlight-col: #0c87f1;
+$tertiary-highlight-col: #054fa0;
 $a-col: #0664b3;
 $soft-col-lighter: #a2a2a2;
 // $main-back-overlay-col: rgba(0, 0, 0, 0.6);
@@ -51,14 +60,16 @@ $pop-back-lighter: #fcfeff;
 $pop-back-slightly-lighter: #fafcfc;
 $pop-back-vv-slightly-darker: #f1f6f9; // #f1f5f7; // #c8d4d8;
 $pop-back-slightly-darker: #dbe7ea; // #c8d4d8;
-$pop-back-darker: #b8c2c5;
+$pop-back-darker: #7f8997; // #b8c2c5;
 $pop-col: #4e5556;
 $pop-col-lighter: #637375;
 $pop-col-more-light: #707d80;
 $pop-col-v-light: #879a9c;
 $pop-col-hued: #567d82;
 
+// Transparent
 $hover-mod: rgba(132, 144, 148, 0.05); // rgba(99, 119, 125, 0.2);
+$error-overlay: rgba(255, 44, 0, 0.1);
 
 // Subdued buttons
 $subdued-btn-back: #dfecf3;
@@ -67,13 +78,13 @@ $subdued-btn-col: #373758;
 
 // Gold specific
 $gold-col: #ffd000;
-$spam-overlay: rgba(255, 44, 0, 0.15);
 
 // Flairs
 $flair-small: #2b87f3;
 $flair-medium: #ffbc00; // #f9d60e;
 $flair-large: #fd7f09; // #fdaa22;
 $flair-xlarge: #ce2c2c;
+$flair-mod: #10b563; // #0abb09;
 
 // Report buttons
 $reports-col: #ffe676;
@@ -173,9 +184,9 @@ $header-slice-height: 50px;
 $non-main-width: $side-gap * 2 + $sidebar-width + $sidebar-main-gap;
 
 // Text
+$sub-name: "TIFU";
 $scroll-overflow-msg: "hello there";
 $login: "log into reddit";
-$sub-name: "TIFU";
 $subscriber-text: "subscribers";
 $online-text: "here now";
 $settings-text: "Settings";
@@ -202,13 +213,15 @@ $cross-icon: $checkbox-checked-icon;
 $subreddit-settings: "subreddit settings";
 $traffic-stats: "traffic statistics";
 $flair-settings: "flair settings";
-$credit: "r/vykort by u/PicturElements  |  v" $version;
 $toolbox-select-msg: "Select which submissions to select";
+
+$search-results-page-tab-text: "search results";
 
 $small-text: "smol fucker wucker";
 $medium-text: "h*ckin medium fucky wucky";
 $large-text: "big ol' fucky wucky";
 $xlarge-text: "vvv bige fucko wucko";
+$mod-post-text: "Mod post";
 
 $tb-history-disclaimer: "Disclaimer:";
 $tb-history-disclaimer-text: "The information shown above is an indication not a complete picture, it lacks the context you would get from having a look at a person's profile.";
@@ -242,7 +255,7 @@ $dropdown-padding-lr: 6px;
 
 @mixin standard-btn {
 	color: $main-back-overlay-col;
-	background: $main-back;
+	background-color: $main-back;
 	border: none;
 	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.1);
 	padding: 0 14px;
@@ -259,29 +272,29 @@ $dropdown-padding-lr: 6px;
 	padding: 0 14px;
 	margin: 0;
 	border: none;
-	background: $pop-back;
+	@include swatch("pop-s-darker");
 	color: $pop-col;
 	// color: $main-back-overlay-col;
 	border-radius: $small-border-radius;
 	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.05);
 
 	&:hover {
-		background: $pop-back-mod;
+		@include swatch("body");
 	}
 }
 
 @mixin dropdown {
-	color: $pop-col;
+	color: inherit;
 	border-radius: $master-border-radius;
 	padding: 0;
 	border: none;
-	background: $card-back;
+	@include swatch("card",true);
 	box-shadow: $modal-drop-shadow;
 	z-index: 10000;
 
 	li {
 		line-height: 30px;
-		border-color: rgba(150,150,150,0.1);;
+		border-color: rgba(150,150,150,0.1);
 	}
 
 	li:last-child {
@@ -291,13 +304,15 @@ $dropdown-padding-lr: 6px;
 
 	li,
 	a {
-		color: $menu-col;
+		color: inherit; // color: $menu-col;
+		background-image: inherit;
 		font-weight: bold;
 		font-size: 11px;
 	
 		&:hover {
-			background: $pop-back !important;
+			@include swatch("pop");
 			text-decoration: none;
+			color: inherit;
 		}
 	}
 }
@@ -328,4 +343,12 @@ $dropdown-padding-lr: 6px;
 	#{$selector}:-moz-placeholder {
 		@content;
 	}
+}
+
+@mixin swatch($type, $set-background: false, $important: false){
+	@include set-swatch($type, $set-background, $important);
+}
+
+@mixin swatch-important($type, $set-background: false, $important: false){
+	@include set-swatch($type, $set-background, $important, true);
 }

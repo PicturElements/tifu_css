@@ -4,7 +4,8 @@ $faux-form-item-padding: 0 8px;
 
 .side {
 	position: relative;
-	background: $card-back;
+	@include swatch("card");
+	color: $pop-col;
 	margin: 0 $side-gap 0 $sidebar-main-gap;
 	border-radius: $master-border-radius;
 	z-index: 1001;
@@ -62,18 +63,28 @@ $faux-form-item-padding: 0 8px;
 		text-decoration: none;
 	}
 
-	body.loggedin & .redditname:after,
-	body.res & .redditname:after {
+	.redditname:after {
 		content: $settings-text;
 		display: block;
 		position: absolute;
 		width: $sidebar-inner-width;
 		height: 25px;
-		background: $pop-back;
+		@include swatch("pop");
 		top: 85px;
 		line-height: 30px;
 		padding: $faux-form-item-padding;
 		box-sizing: border-box;
+		z-index: 10;
+	}
+
+	body:not(.loggedin):not(.res) & {
+		.redditname:after{
+			top: 50px;
+		}
+
+		.md > blockquote:first-child {
+			padding-top: 28px;
+		}
 	}
 
 	body:not(.res) & .side .subscribe-button a {
@@ -115,7 +126,10 @@ $faux-form-item-padding: 0 8px;
 
 	.subscribe-button.toggle .option.active {
 		display: block;
-		color: $main-back-overlay-col !important;
+
+		&.add {
+			color: $main-back-overlay-col !important;
+		}
 	}
 
 	.subscribe-button .option.add,
@@ -132,6 +146,7 @@ $faux-form-item-padding: 0 8px;
 
 		body.subscriber & {
 			background: transparent;
+			color: inherit;
 			box-shadow: none;
 		}
 	}
@@ -152,6 +167,11 @@ $faux-form-item-padding: 0 8px;
 	
 	* + .res-fancy-toggle-button {
 		margin-left: 5px;
+	}
+
+	.res-fancy-toggle-button.remove {
+		background: $main-back !important;
+		color: $main-back-overlay-col;
 	}
 
 	.subscribers,
@@ -184,7 +204,7 @@ $faux-form-item-padding: 0 8px;
 		display: none;
 	}
 
-	.res-sr-style-toggle {
+	.res & .redditname + * {
 		margin-top: 75px !important;
 	}
 
@@ -204,12 +224,16 @@ $faux-form-item-padding: 0 8px;
 		position: relative;
 		height: 25px;
 		line-height: 16px;
-		background: $pop-back !important;
-		color: $pop-col !important;
+		@include swatch-important("pop");
+		color: $pop-col;
 		font-size: 0;
 		margin: 0;
 		transition: background 150ms;
 		clear: both;
+	}
+
+	.titlebox form {
+		@include swatch-important("pop");
 	}
 
 	.titlebox label,
@@ -217,6 +241,7 @@ $faux-form-item-padding: 0 8px;
 	.leavecontributor-button,
 	.flairtoggle + .tagline .author {
 		display: block;
+		position: relative;
 		width: $sidebar-width - 2 * $sidebar-padding;
 		z-index: 100;
 		box-sizing: border-box;
@@ -251,7 +276,7 @@ $faux-form-item-padding: 0 8px;
 	.flairtoggle:hover label,
 	.flairtoggle + .tagline:hover,
 	.flairtoggle:hover + .tagline {
-		background: $pop-back-mod !important;
+		// background: $pop-back-mod !important;
 	}
 
 	#res-style-checkbox,
@@ -266,6 +291,7 @@ $faux-form-item-padding: 0 8px;
 	.titlebox label {
 		cursor: pointer;
 		font-size: 0;
+		background-image: inherit;
 	}
 
 	.titlebox label:before,
@@ -326,6 +352,7 @@ $faux-form-item-padding: 0 8px;
 	.leavecontributor-button a,
 	.flairselectbtn,
 	.md > blockquote:first-child > h1 + p a {
+		@include swatch("pop");
 		width: 100%;
 		height: 25px;
 		position: absolute;
@@ -367,14 +394,14 @@ $faux-form-item-padding: 0 8px;
 
 	.md > blockquote:first-child {
 		position: relative;
-		background: $pop-back;
-		color: $pop-col;
+		@include swatch("pop");
 		margin: 0 $sidebar-padding;
 		border: none;
 		overflow: hidden;
 		padding: 0;
 		padding-bottom: 8px;
 		padding-top: 15px;
+		clear: left;
 
 		> * {
 			padding-left: 8px;
@@ -403,9 +430,9 @@ $faux-form-item-padding: 0 8px;
 			font-size: 0;
 		}
 
-		> h1 + p:hover {
+		/*> h1 + p:hover {
 			background: $hover-mod;
-		}
+		}*/
 
 		> h1 + p a {
 			position: absolute;
@@ -494,7 +521,7 @@ $faux-form-item-padding: 0 8px;
 		border-radius: 50%;
 		background: $pop-col-v-light;
 		color: $pop-back;
-		font-size: 65%;
+		font-size: 75%;
 		font-weight: bold;
 	}
 
@@ -573,7 +600,7 @@ $faux-form-item-padding: 0 8px;
 	}
 
 	h6 + blockquote:hover {
-		background: $card-back !important;
+		@include swatch-important("card");
 		z-index: 100;
 		box-shadow: 0 0 0 3000px rgba(0,0,0,0.1);
 		border-radius: $small-border-radius;
@@ -604,7 +631,7 @@ $faux-form-item-padding: 0 8px;
 			border-radius: $small-border-radius $small-border-radius 0 0;
 			color: $pop-col;
 			font-weight: bold;
-			background: $pop-back;
+			@include swatch("pop");
 		}
 
 		&:after {
@@ -624,7 +651,7 @@ $faux-form-item-padding: 0 8px;
 
 	.md > p:first-of-type ~ h2 {
 		width: 100%;
-		height: 40px;
+		height: 50px;
 		position: relative;
 		text-align: center;
 		text-transform: uppercase;
@@ -633,7 +660,7 @@ $faux-form-item-padding: 0 8px;
 		overflow: hidden;
 		margin: 0 !important;
 		box-sizing: content-box;
-		line-height: 60px !important;
+		line-height: 72px !important;
 		padding: 20px 0 0 0 !important;
 		z-index: 1;
 
@@ -662,7 +689,7 @@ $faux-form-item-padding: 0 8px;
 	.md > h2:nth-of-type(1) ~ h2:nth-of-type(3) {
 		&:before,
 		& ~ * {
-			background: $pop-back;
+			@include swatch("pop");
 		}
 	}
 
@@ -670,22 +697,31 @@ $faux-form-item-padding: 0 8px;
 	.md > h2:nth-of-type(2) ~ h2:nth-of-type(4) {
 		&:before,
 		& ~ * {
-			background: $card-back;
+			@include swatch("card");
 		}
 	}
 
-	a[href*="w/rules"] {
+	/*a[href*="w/rules"] {
 		display: block;
 		margin: 12px 40px !important;
 		text-align: center;
-	}
+	}*/
 
-	h2 + table th {
-		display: none;
-	}
+	 blockquote > ol {
+		list-style: none;
+		margin: 10px;
+		padding: 0;
+		margin-top: -15px !important;
+		text-align: justify;
 
-	h2 + table td {
-		border: none !important;
+		li:nth-child(2n + 1) {
+			margin: 10px 0 3px 0;
+			font-weight: 600;
+
+			a {
+				float: right;
+			}
+		}
 	}
 
 	h4 {
@@ -693,8 +729,24 @@ $faux-form-item-padding: 0 8px;
 		padding: 6px 15px !important;
 	}
 
-	h2 + h4 {
-		padding-top: 15px !important;
+	.md > h2 + * {
+		padding-top: 20px !important;
+	}
+
+	.md h2 + h5 {
+		font-size: 100%;
+		font-weight: normal;
+		z-index: 10;
+
+		> * {
+			display: block;
+			position: relative;
+			width: 100%;
+			text-align: center;
+			margin-top: -25px;
+			opacity: 0.7;
+			z-index: 10;
+		}
 	}
 
 	.md > *:last-child {
@@ -719,6 +771,7 @@ $faux-form-item-padding: 0 8px;
 
 	.md blockquote,
 	.md del {
+		border: none;
 		color: inherit;
 	}
 
@@ -728,7 +781,7 @@ $faux-form-item-padding: 0 8px;
 
 	.sidecontentbox {
 		position: relative;
-		background: $pop-back;
+		@include swatch("pop");
 		margin: 10px;
 	}
 
@@ -759,7 +812,7 @@ $faux-form-item-padding: 0 8px;
 
 	.sidecontentbox .title h1,
 	.redditname:after {
-		color: $pop-col;
+		color: inherit;
 		text-transform: uppercase;
 		font-size: 12px;
 		font-weight: 600;
@@ -821,7 +874,7 @@ $faux-form-item-padding: 0 8px;
 	}
 }
 
-#search {
+.side #search {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -832,17 +885,18 @@ $faux-form-item-padding: 0 8px;
 	padding: $sidebar-padding;
 	box-sizing: border-box;
 	pointer-events: none;
+}
 
+#search {
 	> * {
 		pointer-events: auto;
 	}
 
-	input[type=text] {
-		background: $pop-back;
+	.side & input[type=text] {
+		@include swatch("pop");
 		position: absolute;
 		width: $sidebar-inner-width;
 		height: 30px;
-		padding: 0 8px;
 		border: none;
 		border-radius: 3px;
 		outline: none;
@@ -889,7 +943,7 @@ $faux-form-item-padding: 0 8px;
 	top: 40px;
 	border: none;
 	padding: 10px !important;
-	background: $pop-back !important;
+	@include swatch("pop");
 	transition: opacity 100ms;
 	transition-delay: 400ms;
 	box-shadow: $modal-shadow;
@@ -1030,21 +1084,28 @@ $faux-form-item-padding: 0 8px;
 	overflow: hidden;
 	opacity: 1;
 
+	a.title {
+		opacity: 1;
+	}
+
 	ul {
-		width: 100%;
+		width: auto !important;
 		max-width: 100%;
+		flex-grow: 1;
 
 		li {
-			padding: 2px 8px !important;
+			width: 100% !important;
+			padding: 3px 8px !important;
+			@include swatch("card");
 			
 			&:hover {
-				background: $pop-back;
+				@include swatch("pop");
 			}
 		}
 	}
 
 	h2 {
-		background: $pop-back;
+		@include swatch("pop");
 		color: $pop-col;
 		text-transform: uppercase;
 		font-size: 12px;
@@ -1052,7 +1113,7 @@ $faux-form-item-padding: 0 8px;
 	}
 
 	.error {
-		margin: 20px 10px;
+		margin: 10px;
 		color: #ce4141;
 	}
 
@@ -1072,7 +1133,7 @@ $faux-form-item-padding: 0 8px;
 			border: 10px solid white !important;
 			border-left-width: 15px !important;
 			border-right-width: 15px !important;
-			background: $card-back;
+			@include swatch("card");
 		}
 
 		img {
@@ -1083,11 +1144,39 @@ $faux-form-item-padding: 0 8px;
 	form {
 		padding: 8px 0;
 		border-top: none;
-		background: $pop-back;
+		@include swatch("pop");
+
+		> div {
+			display: flex;
+			justify-content: center;
+			margin: 0;
+		}
+	}
+
+	.customizer input {
+		height: 26px;
+		text-indent: 0.75em;
+		width: 130px;
+	}
+
+	.status {
+		display: block;
+		color: $pop-col;
+		margin: 6px 0 0;
+
+		&:empty {
+			margin: 0;
+		}
 	}
 }
 
+.flairremove {
+	color: $pop-col;
+	margin: 1px 0 10px 5px;
+}
+
 .flairoptionpane {
+	display: flex;
 	padding: 10px 0;
 	max-width: 100%;
 }

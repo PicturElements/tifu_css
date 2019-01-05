@@ -1,22 +1,10 @@
-@import "utils.scss";
+@import "./utils.scss";
+@import "./palette-settings.scss";
 
 body {
 	color: $pop-col;
 	font-family: Segoe, "PT Sans", Arial, sans-serif;
 	background: $body-back;
-}
-
-body:after {
-	content: $scroll-overflow-msg;
-	position: fixed;
-	top: -300px;
-	left: 0;
-	width: 100%;
-	height: 300px;
-	background: $header-back;
-	text-align: center;
-	line-height: 500px;
-	z-index: -1;
 }
 
 input,
@@ -27,20 +15,23 @@ textarea {
 }
 
 .pretty-form input[type=text],
-.pretty-form textarea,
-.pretty-form input[type=password],
 .pretty-form input[type=number],
+.pretty-form input[type=password],
+.pretty-form textarea,
+input[type=url],
 input[type=text],
 input[type=number],
 input[type=password],
 input:not([type]),
+.combined-search-page #search input[type=text],
 textarea {
 	box-sizing: border-box;
 	border: 1px solid $pop-back-slightly-darker;
-	background: $pop-back;
+	@include swatch("pop");
 	border-radius: $small-border-radius !important;
 	text-indent: 0.25em;
 	box-shadow: none;
+	min-height: 2em;
 
 	&:focus {
 		border-color: $pop-back-darker;
@@ -49,16 +40,17 @@ textarea {
 
 .pretty-form,
 .roundfield {
+	input[type=url],
 	input[type=text],
-	textarea,
+	input[type=number],
 	input[type=password],
-	input[type=number] {
-		background: $card-back;
+	textarea {
+		@include swatch("card");
 	}
 }
 
 input[type=text]:focus {
-	background: $card-back !important;
+	@include swatch("card");
 }
 
 input[type=checkbox],
@@ -83,7 +75,7 @@ input[type=radio] {
 }
 
 input[type=radio]:checked {
-	background: $pop-col-more-light;
+	background: $pop-back-slightly-darker;
 	box-shadow: inset 0 0 0 4px $pop-back-darker;
 }
 
@@ -116,7 +108,7 @@ body.mod-toolbox select.tb-action-button {
 	border: 1px solid $pop-back-slightly-darker;
 	color: $pop-col-lighter;
 	border-radius: $small-border-radius;
-	background: $card-back;
+	@include swatch("card");
 	height: 17px;
 	padding: 0 6px 1px;
 	min-width: 100px;
@@ -126,7 +118,7 @@ body.mod-toolbox select.tb-action-button {
 
 select:focus {
 	border-color: $pop-back-darker;
-	color: $pop-col;
+	opacity: 0.7;
 }
 
 label {
@@ -162,8 +154,8 @@ a,
 	border: none;
 	border-radius: $master-border-radius;
 	box-shadow: 0 2px 2px 1px rgba(0,0,0,0.07);
-	background: $card-back;
-	color: $pop-col;
+	@include swatch("card");
+	color: inherit;
 }
 
 .hover-bubble.multi-selector strong {
@@ -197,7 +189,7 @@ a,
 }
 
 .multi-selector .title {
-	background: $pop-back;
+	@include swatch("pop");
 	padding: 5px;
 	line-height: 1.1;
 	border-radius: $master-border-radius $master-border-radius 0 0;
@@ -207,8 +199,16 @@ a,
 	margin-top: 7px;
 }
 
+/*.author-tooltip {
+	@include swatch("pop");
+}
+
+.author-tooltip__head {
+	background: inherit;
+	@include swatch("card");
+}*/
+
 .multi-name {
-	background: $pop-back !important;
 	border: none !important;
 	height: 25px;
 	padding: 0 8px !important;
@@ -283,7 +283,7 @@ a,
 }
 
 .modal-content {
-	background: $pop-back;
+	@include swatch("pop");
 	border-radius: $master-border-radius !important;
 	box-shadow: $modal-drop-shadow !important;
 	border: none !important;
@@ -363,12 +363,17 @@ button,
 .blueButton,
 .RESHoverTitle .fancy-toggle-button a,
 input[type="submit"],
-.RESNotification .RESNotificationButtonBlue {
+.RESNotification .RESNotificationButtonBlue,
+.res-search-tabs a,
+.search-submit-button {
 	height: 26px;
+	display: inline-block;
 	@include standard-btn;
+	vertical-align: bottom;
+	box-sizing: border-box;
 
 	&[disabled] {
-		background: $pop-back-darker;
+		background-color: $pop-back-darker;
 		opacity: 0.8;
 	}
 }
@@ -409,21 +414,26 @@ a.title-button.gold {
 	line-height: 20px;
 	padding: 0 10px !important;
 	border-radius: $small-border-radius !important;
-	background: $subdued-btn-back;
+	@include swatch("pop-s-darker");
 	color: $subdued-btn-col !important;
 	vertical-align: top;
 	border: none !important;
 	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.1) !important;
 
 	&:hover {
-		background: $subdued-btn-back-mod;
+		@include swatch("body");
 	}
 }
 
 // Subdued variation: gold button
+a.title-button.gold,
 a.title-button.gold:hover {
-	background: #f7e567;
+	@include swatch("report");
 }
+
+/*a.title-button.gold:hover {
+	background: #f7e567;
+}*/
 
 // Faux modals (dropdowns)
 .modtools .drop-choices {
@@ -440,7 +450,7 @@ a.title-button.gold:hover {
 		padding: 6px 10px;
 
 		&:hover {
-			background: $pop-back;
+			@include swatch("pop");
 		}
 	}*/
 }
@@ -478,7 +488,7 @@ a.title-button.gold:hover {
 @mixin tabmenu-link {
 	display: block;
 	height: 100%;
-	background: $card-back !important;
+	@include swatch("card",true);
 	color: $main-col !important;
 	border: none !important;
 	border-radius: $master-border-radius;
@@ -490,7 +500,7 @@ a.title-button.gold:hover {
 }
 
 @mixin tabmenu-link-active {
-	background: $card-back !important;
+	@include swatch("card",true);
 	color: $highlight-col !important;
 	margin-top: 0 !important;
 	line-height: 35px !important;
@@ -553,7 +563,7 @@ a.title-button.gold:hover {
 .submit_text {
 	position: relative;
 	border-radius: 3px;
-	background: $info-shade !important;
+	@include swatch("info");
 	color: $info-col !important;
 	padding: 8px 12px 8px 38px !important;
 	border: none !important;
@@ -569,7 +579,7 @@ a.title-button.gold:hover {
 .error {
 	display: block;
 	padding: 7px 10px;
-	background: $spam-overlay;
+	background: $error-overlay;
 	color: $alert-col;
 	font-weight: bold;
 	border-radius: $master-border-radius;
@@ -600,7 +610,7 @@ a.title-button.gold:hover {
 		width: 16px;
 		height: 16px;
 		background: $alert-col;
-		color: white;
+		color: white !important;
 		border-radius: 50%;
 		text-align: center;
 		vertical-align: middle;
@@ -666,29 +676,32 @@ a.title-button.gold:hover {
 	border: none;
 	height: 15px;
 	vertical-align: middle;
-	background: transparent;
-	z-index: 100;
-	padding: 0 6px 0 17px;
+	background-color: transparent;
+	padding: 0 6px 0 21px;
 	line-height: 16px;
 	margin-left: 5px;
 	cursor: default;
 	max-width: initial;
-	border-radius: $master-border-radius;
+	background: inherit;
+	border-radius: $small-border-radius;
 	color: $pop-col;
+	z-index: 99;
 
 	&:before {
 		content: "";
 		position: absolute;
-		top: -2px;
-		left: 4px;
-		width: 20px;
-		height: 20px;
+		top: 1px;
+		left: 6px;
+		width: 14px;
+		height: 14px;
+		@include swatch("pop-s-darker");
 		border-radius: $small-border-radius;
-		background: $pop-back-slightly-darker;
 		transform: translateY(-0.5px) rotate(45deg);
-		background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 14%, transparent 14%);
-		background-position: -3px 3px;
-		z-index: -1;
+		background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 20%, transparent 20%), url($palette-url);
+		background-size: 100% 100%, get-palette-size();
+		background-position-x: get-block("pop-s-darker");
+		background-position-y: inherit;
+		border-top-right-radius: 100%;
 	}
 
 	&:after {
@@ -698,7 +711,7 @@ a.title-button.gold:hover {
 		left: 15px;
 		width: 100%;
 		height: 100%;
-		background: $pop-back-slightly-darker;
+		@include swatch("pop-s-darker");
 		z-index: -1;
 	}
 }
@@ -733,14 +746,16 @@ a.title-button.gold:hover {
 .guiders_x_button,
 #search_hidemore,
 .listingsignupbar__close,
-.modal-header-close {
+.modal-header-close,
+.flairremove {
 	font-size: 0 !important;
 	text-align: center;
 	background: none;
-	color: $pop-col;
+	color: inherit;
 
 	&:before {
 		content: $cross-icon;
+		cursor: pointer;
 		font-size: 12px;
 	}
 }
@@ -754,7 +769,7 @@ a.title-button.gold:hover {
 
 // Standard dropdowns
 .dropdown {
-	z-index: 20;
+	z-index: 200;
 }
 
 .res-filterline-dropdown,
@@ -763,10 +778,10 @@ a.title-button.gold:hover {
 .res-commentNavToggle-choices,
 .RESMacroDropdown {
 	display: block;
-	background: $card-back;
-	box-shadow: $modal-drop-shadow;
+	@include swatch("card");
+	box-shadow: inset 0 0 0 1px $body-back, 2px 2px 2px rgba(0, 0, 0, 0.02);
 	padding-top: $dropdown-font-size + $dropdown-padding-tb * 2 !important;
-	margin-top: -($dropdown-font-size + $dropdown-padding-tb) !important;
+	margin-top: -($dropdown-font-size + $dropdown-padding-tb + 1) !important;
 	padding: 0;
 	max-height: 0px;
 	overflow: hidden;
@@ -776,7 +791,7 @@ a.title-button.gold:hover {
 	transition: max-height 300ms, opacity 300ms, pointer-events 300ms;
 	transition-delay: 0ms, 300ms, 300ms;
 	border-radius: $master-border-radius;
-	z-index: 19;
+	z-index: 199;
 }
 
 .drop-choices:not(.inuse) {
@@ -792,21 +807,23 @@ a.title-button.gold:hover {
 .drop-choices.inuse,
 .RESMacroWrappingSpan .openMacro + span,
 #sort-menu[style*="block"] {
-	max-height: 150px;
+	@include swatch("card");
+	max-height: 250px;
 	overflow: auto;
 	opacity: 1;
-	pointer-events: auto;
+	pointer-events: auto !important;
 	transition-delay: 0ms;
 }
 
 // Dropdown items
 .drop-choices a.choice,
+.drop-choices:after, // See uber-cosmetic section below
 .res-commentNavToggle-type,
 .RESMacroDropdownList li a {
 	display: block;
 	position: relative;
 	padding: $dropdown-padding-tb $dropdown-padding-lr;
-	color: inherit;
+	color: inherit !important;
 	line-height: 1;
 	padding: 5px 8px;
 	font-size: $dropdown-font-size;
@@ -814,10 +831,14 @@ a.title-button.gold:hover {
 	box-sizing: border-box;
 	cursor: pointer;
 	border: none !important;
+}
 
+.drop-choices a.choice,	
+.res-commentNavToggle-type,
+.RESMacroDropdownList li a {
 	&:hover {
-		background: $pop-back;
-		color: $pop-col-lighter;
+		@include swatch("pop");
+		opacity: 0.7;
 		text-decoration: none;
 	}
 }
@@ -846,9 +867,9 @@ a.title-button.gold:hover {
 .res-commentNavToggle,
 .RESMacroDropdownTitle {
 	position: relative;
-	background: none;
-	color: $pop-col-lighter;
+	background-image: none;
 	font-size: $dropdown-font-size;
+	color: inherit;
 	line-height: 1;
 	font-weight: bold;
 	text-decoration: none;
@@ -868,9 +889,24 @@ a.title-button.gold:hover {
 }
 
 .res-commentNavToggle-choices {
-	margin-left: -$dropdown-padding-lr + 1;
+	margin-left: -$dropdown-padding-lr;
 }
 
 .reddit-infobar {
 	margin-top: 0;
+}
+
+// Uber-cosmetic stuff
+.drop-choices:after {
+	overflow: hidden;
+	padding: 0 8px;
+	height: 0;
+}
+
+.content > .menuarea .drop-choices:after {
+	content: "past 24 hours";
+}
+
+.commentarea .menuarea .drop-choices:after {
+	content: "controversial";
 }

@@ -1,0 +1,26 @@
+@import "./utils.scss";
+
+@mixin filter($subdomain,$hash) {
+	$hash: #{"#" + $hash};
+
+	.side .md a[href*="#{$hash}"]:nth-child(2) {
+		display: none;
+	}
+
+	:lang(#{$subdomain}) {
+		.side .md a[href*="#{$hash}"]:first-child {
+			display: none;
+		}
+
+		.side .md a[href*="#{$hash}"]:nth-child(2) {
+			display: block;
+		}
+	}
+}
+
+@mixin flair-box {
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07);
+	text-shadow: 1px 1px rgba(0,0,0,0.1);
+	color: white !important;
+	border-radius: $small-border-radius;
+}
